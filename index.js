@@ -34,9 +34,12 @@ const app = express();
 app.use('/uploads', express.static(__dirname + '/uploads'));
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({  
+app.use(cors({
   credentials: true,
-  origin: '*'
+  origin: (origin, callback) => {
+    // Allow all origins
+    callback(null, true);
+  }
 }));
 
 async function getUserDataFromRequest(req) {
